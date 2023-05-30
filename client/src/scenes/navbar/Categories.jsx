@@ -4,10 +4,8 @@ import {
   Box,
   Typography,
   useTheme,
-  useMediaQuery,
-  Button,
 } from "@mui/material";
-import { KeyboardArrowDown,KeyboardArrowUp } from '@mui/icons-material';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { useSelector } from "react-redux";
 import FlexBetween from "components/FlexBetween";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +18,6 @@ const Categories = () =>{
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
     const background = theme.palette.background.default;
-    const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
     const main = theme.palette.neutral.main;
 

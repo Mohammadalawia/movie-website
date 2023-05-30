@@ -14,6 +14,7 @@ import {
   Help,
   Menu,
   Close,
+  AccountCircleRounded,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "state";
@@ -56,9 +57,13 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
+          <IconButton onClick={()=> navigate("/profile")}>
+            <AccountCircleRounded sx={{ fontSize: "25px" }}/>
+          </IconButton>
           <IconButton onClick={()=> navigate("/about")}>
               <Help sx={{ fontSize: "25px" }} />
             </IconButton>
+            
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}

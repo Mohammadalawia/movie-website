@@ -11,9 +11,7 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <Categories/>
-
       <MovieList/>
-      
       
       </Box>
   );

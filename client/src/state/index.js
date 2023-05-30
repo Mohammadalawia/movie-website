@@ -6,6 +6,7 @@ const initialState = {
   token: null,
   products: [],
   genres:[],
+  orders:[],
 };
 
 export const authSlice = createSlice({
@@ -43,9 +44,23 @@ export const authSlice = createSlice({
       });
       state.genres = updatedGenres;
     },
+    setOrders: (state, action) => {
+      state.orders = action.payload.orders;
+    },
+    setOrder: (state, action) => {
+      const updatedOrders = state.orders.map((order) => {
+        if (order._id === action.payload.order._id) return action.payload.order;
+        return order;
+      });
+      state.orders = updatedOrders;
+    },
+    deleteOrder: (state, action) => {
+      const orderId = action.payload;
+      state.orders = state.orders.filter((order) => order.id !== orderId);
+    },
   }
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setProducts, setProduct, setGenres, setGenre } =
+export const { setMode, setLogin, setLogout, setFriends, setProducts, setProduct, setGenres, setGenre, setOrders, setOrder, deleteOrder } =
   authSlice.actions;
 export default authSlice.reducer;

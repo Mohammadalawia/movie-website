@@ -4,6 +4,7 @@ import LoginPage from "scenes/loginPage";
 import AboutPage from "scenes/aboutPage";
 import ProductPage from "scenes/productPage";
 import CategoryPage from "scenes/categoryPage.jsx";
+import ProfilePage from "scenes/profilePage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -37,6 +38,10 @@ function App() {
             <Route
               path="/genre/:genreId"
               element={isAuth ? <CategoryPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/profile"
+              element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Box,  useTheme, Typography, Divider, Button, Modal } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setOrders } from "state";
 import WidgetWrapper from "components/WidgetWrapper";
 import StarIcon from "@mui/icons-material/Star";
-import {ThumbUpOutlined, WatchLater } from "@mui/icons-material";
+import { WatchLater,ThumbUp } from "@mui/icons-material";
 
 const ProductPage = () => {
   const products = useSelector((state) => state.products);
@@ -16,6 +17,8 @@ const ProductPage = () => {
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const product = products.find((product) => product.id === Number(id));
+  const dispatch = useDispatch();
+  const orders = useSelector((state)=> state.orders)
 
   const getGenreName = (genreIds) => {
     const genreNames = genreIds.map((genreId) => {
@@ -27,6 +30,8 @@ const ProductPage = () => {
 
   
   const handleBuyMovie = (movie) => {
+    const newOrders = Array.isArray(orders) ? [...orders, product] : [product];
+    dispatch(setOrders({orders: newOrders}))
     setSelectedMovie(movie);
   };
 
@@ -39,7 +44,7 @@ const ProductPage = () => {
       <Navbar />
       {product ? (
         <Box display="flex">
-        <WidgetWrapper width="40%" m="2rem">
+        <WidgetWrapper width="42%" m="2rem" ml="3rem">
 
         <Box>
         <Box
@@ -58,8 +63,8 @@ const ProductPage = () => {
             >
               <img
                 style={{
-                  maxHeight: '200%',
-                  maxWidth: '200%',
+                  maxHeight: '100%',
+                  maxWidth: '100%',
                   objectFit: 'contain',
                 }}
                 alt="movie"
@@ -103,22 +108,24 @@ const ProductPage = () => {
         </Typography>
           <Typography display="flex" justifyContent="center" fontSize="1rem" mt="1rem">
         Likes : {product.vote_count}
-        <ThumbUpOutlined  sx={{ ml:"0.5rem"}}/>
+        <ThumbUp  sx={{ ml:"0.5rem"}}/>
       </Typography>
       <Typography display="flex" justifyContent="center" fontSize="1rem" m="1rem" >
         Watched by : {product.popularity } 
         <WatchLater sx={{ ml:"0.5rem"}}/>
       </Typography>
       <Divider/>
-      <Button display="flex" fontsize="10rem" justifyContent="center" variant="contained" color="primary" onClick={() => handleBuyMovie(product.title)} sx={{width:"10rem", height:"4rem", mt:"4rem", fontsize:"10rem"}}>
+      <Button display="flex" fontSize="1rem"
+        variant="contained"
+        color="primary"
+        onClick={() => handleBuyMovie(product.title)} 
+        sx={{width:"10rem", height:"4rem", mt:"4rem", fontSize:"1rem"}}>
                   Order now
                 </Button>
       </Box>
       <Modal
         open={selectedMovie !== null}
         onClose={handleCloseModal}
-        aria-labelledby="buy-confirmation-modal"
-        aria-describedby="buy-confirmation-description"
       >
         <Box
           sx={{
