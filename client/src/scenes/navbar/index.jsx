@@ -15,9 +15,11 @@ import {
   Menu,
   Close,
   AccountCircleRounded,
+  DarkMode,
+  LightMode,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "state";
+import { setLogout, setMode } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 
@@ -32,6 +34,7 @@ const Navbar = () => {
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
+  const dark = theme.palette.neutral.dark;
 
   const fullName = `${user.firstName} ${user.lastName}`;
 
@@ -57,6 +60,13 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
+          <IconButton onClick={() => dispatch(setMode())}>
+            {theme.palette.mode === "dark" ? (
+              <DarkMode sx={{ fontSize: "25px" }} />
+            ) : (
+              <LightMode sx={{ color: dark, fontSize: "25px" }} />
+            )}
+          </IconButton>
           <IconButton onClick={()=> navigate("/profile")}>
             <AccountCircleRounded sx={{ fontSize: "25px" }}/>
           </IconButton>
